@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="bootstrap-icons.css">
+    <title>Todo App</title>
+    <!-- Style badge: person och attacments ska bli som en bagde -->
+    <style>
+        .badge-person {
+            background-color:#17a2b8;
+            color: rgb(8, 8, 8);
+            padding: 4px 10px;
+         border-radius: 12px;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-attachments {
+      background-color: #000;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    </style>
+
+
+
+</head>
+
+<body>
+ <main class="container my-5">
+
+  <h2 class="text-center mb-4">Todo App</h2>
+
+  <div class="card">
+    <div class="card-body">
+
+      <form id="taskForm">
+
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" id="title" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea id="description" class="form-control" rows="3" required></textarea>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="Due Date" class="form-label">Due date</label>
+            <input type="datetime-local" id="dueDate" class="form-control" required>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Assigned to (optional)</label>
+            <select id="assignedTo" class="form-select">
+                <option value="">--- Select Person (Optional) -- </option>
+                    <option value="1"> Jon Due</option>
+                    <option value="2"> Capten Kirk</option>
+                    <option value="3"> Capten Janeway</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Attachment (optional)</label>
+          <div class="input-group">
+                <input class="form-control form-control-sm" type="file" id="attachment" multiple>
+                    <button class="btn btn-outline-secondary btn-sm" type="button" id="clearAttachment">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+          </div>
+          <div id="fileList" class="border rounded p-2 bg-white" style="min-height: 50px; font-size: 0.85rem;">
+                </div>
+         </div>
+            <div class="text-end mt-4">
+                <button class="btn btn-primary" type="submit">+ Add Todo</button>
+            </div>   
+
+      </form>
+
+    </div>
+  </div>
+
+  <div class="card shadow-sm p-4 bg-body-tertiary mb-5 ">
+
+      <section id="taskList">
+
+        <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
+            <h2 class="h4 mb-0"> Todos </h2>
+            <div class="btn-group">
+                <button class="btn btn-outline-secondary btn-sm" id="filterBtn"><i class="bi bi-funnel"></i></button>
+                <button class="btn btn-outline-secondary btn-sm" id="sortBtn"><i class="bi bi-sort-down"></i></button>
+            </div>
+        </div>
+</main>
+
+<script>
+  // --- Hämta element ---
+  const form = document.getElementById('taskForm');
+  const titleInput = document.getElementById('title');
+  const descriptionInput = document.getElementById('description');
+  const dueDateInput = document.getElementById('dueDate');
+  const assignedToInput = document.getElementById('assignedTo');
+  const attachmentInput = document.getElementById('attachment');
+  const clearAttachmentBtn = document.getElementById('clearAttachment');
+  const fileList = document.getElementById('fileList');
+  const taskList = document.getElementById('taskList');
+
+  // --- Visa valt filnamn ---
+  attachmentInput.addEventListener('change', () => {
+    fileList.innerHTML = "";
+
+    if (attachmentInput.files.length > 0) {
+      const file = Array.from(attachmentInput.files);
+      fileList.innerHTML = `
+      <ul class="m-0 p-0" style="list-style:none;">
+         ${files.map(f => `<li><i class="bi bi-paperclip"></i> ${f.name}</li>`).join("")} 
+        </ul> 
+        `;
+    }
+  });
+
+  // --- Rensa filen med X-knappen ---
+  clearAttachmentBtn.addEventListener('click', () => {
+    attachmentInput.value = "";
+    fileList.innerHTML = "";
+  });
+
+  // --- Lyssna på formuläret ---
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const assignedToName =
+     assignedToInput.options[assignedToInput.selectedIndex].text.trim();
+
+    // --- Skapa task-objekt ---
+    const task = {
+      title: titleInput.value.trim(),
+      description: descriptionInput.value.trim(),
+      dueDate: dueDateInput.value,
+      assignedTo: assignedToName === "--- Select Person (Optional) --" ? "" : assignedToName,
+      attachment: attachmentInput.files[0] ? attachmentInput.files[0].name : ""
+    };
+
+    // --- Rendera task ---
+    renderTask(task);
+
+    // --- Rensa formuläret ---
+    form.reset();
+    fileList.innerHTML = "";
+  });
+
+  // --- Funktion för att skapa ett task-card ---
+   function renderTask(task) {
+  const card = document.createElement('div');
+  card.className = 'card mb-3 shadow-sm';
+
+  const createdDate = new Date().toISOString().split("T")[0];
+
+  card.innerHTML = `
+    <div class="card-body">
+
+      <!-- TOP: Title + description + icons -->
+      <div class="d-flex justify-content-between align-items-start">
+
+        <div>
+          <h5 class="fw-bold mb-1">${task.title}</h5>
+          <p class="text-muted mb-2">${task.description}</p>
+
+          <!-- Badges under description -->
+          <div class="d-flex flex-column gap-1">
+
+            <span class="d-flex align-items-center">
+               <i class="bi bi-calendar-event me-1"></i>
+                Due: ${task.dueDate}
+            </span>
+
+            ${task.assignedTo ? `
+              <span class="badge-person">
+             <i class=" bi bi-person"></i>
+                ${task.assignedTo}
+              </span>
+            ` : ""}
+
+            ${task.attachments && task.attachments.length > 0 ? `
+              <span class="badge-attachments">
+                <i class="bi bi-paperclip"></i>
+                 ${task.attachments.length} attachment(s)
+              </span>
+            ` : ""}
+
+
+            
+          </div>
+        </div>
+
+        <!-- ICON BUTTONS -->
+
+<div class="d-flex align-items-center gap-3">
+
+          <span class="text-muted" style="font-size: 0.85rem;">
+            Created: ${createdDate}
+          </span>
+
+          <button class="btn btn-sm btn-outline-success p-1">
+            <i class="bi bi-check-lg"></i>
+          </button>
+
+          <button class="btn btn-sm btn-outline-primary p-1">
+            <i class="bi bi-pencil"></i>
+          </button>
+
+          <button class="btn btn-sm btn-outline-danger p-1 delete-btn">
+            <i class="bi bi-trash"></i>
+          </button>
+
+       
+        </div>
+      </div>
+
+      
+    </div>
+  `;
+
+  // Delete button
+  card.querySelector(".delete-btn").addEventListener("click", () => {
+    card.remove();
+  });
+
+  taskList.appendChild(card);
+    }
+ </script>    
+</body> 
