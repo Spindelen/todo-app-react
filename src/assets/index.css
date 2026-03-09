@@ -1,0 +1,21 @@
+.badge-person {
+  background-color: #17a2b8;
+  color: rgb(8, 8, 8);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-attachments {
+  background-color: #000;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
