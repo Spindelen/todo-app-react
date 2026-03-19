@@ -1,0 +1,32 @@
+.postit {
+  background: #fff9a8; /* gul post-it färg */
+  padding: 20px;
+  border-radius: 4px;
+  width: 220px;
+  min-height: 180px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  transform: rotate(-2deg);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.postit:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 8px 12px rgba(0,0,0,0.25);
+}
+
+.postit-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.postit-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.postit-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}

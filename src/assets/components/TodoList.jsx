@@ -5,8 +5,6 @@ const TodoList = ({ todos, onDelete, onEdit, onToggle }) => {
   return (
     <div className="card shadow-sm p-4 bg-body-tertiary mb-5">
       <section>
-
-        {/* Header */}
         <div className="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
           <h2 className="h4 mb-0">Todos</h2>
 
@@ -20,11 +18,11 @@ const TodoList = ({ todos, onDelete, onEdit, onToggle }) => {
           </div>
         </div>
 
-        {/* Cards */}
         {todos.length === 0 && (
           <p className="text-muted">No todos yet.</p>
         )}
 
+        <div className="postit-grid">
         {todos.map((todo) => (
           <TodoCard
             key={todo.id}
@@ -34,10 +32,11 @@ const TodoList = ({ todos, onDelete, onEdit, onToggle }) => {
             onToggle={onToggle}
           />
         ))}
-
+        </div>
       </section>
     </div>
   );
 };
 
 export default TodoList;
+

@@ -4,7 +4,7 @@ import Content from "./assets/components/content";
 import Sidebar from "./assets/components/Sidebar";
 import TodoCard from "./assets/components/TodoCard";
 import TodoList from "./assets/components/TodoList";
-
+import "./assets/components/css/App.css"
 
 
 function App() {
@@ -18,28 +18,37 @@ function App() {
     attachments: []
   }
   ]);
+const [search, setSearch] = useState("");
 
 const addTodo = (newTodo) => {
   setTodos([...todos, newTodo]);
 };
 
-  return(
+const filteredTodos = todos.filter((todo) => {
+    const q = search.toLowerCase();
+    return (
+      todo.title.toLowerCase().includes(q) ||
+      todo.description.toLowerCase().includes(q)
+    );
+  });
+
+ return (
     <div className="d-flex">
-      <Sidebar/>
+      <Sidebar />
+
       <div className="flex-grow-1">
-        <Header/>
+        <Header search={search} setSearch={setSearch} />
+
         <Content onAddTodo={addTodo} />
+
         <TodoList
-        todos={todos}
-        onDelete={(id) => 
-          console.log('Delete', id)}
-        onToggle={(id) => 
-          console.log('Toggle', id)}
-       />
+          todos={filteredTodos}
+          onDelete={(id) => console.log("Delete", id)}
+          onToggle={(id) => console.log("Toggle", id)}
+        />
       </div>
     </div>
-    );
- 
+  );
 }
 
 export default App
