@@ -1,10 +1,21 @@
 
-// src/components/Sidebar.jsx
+
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import "./css/Sidebar.css";
 
 const Sidebar = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <div className="sidebar bg-light p-3" style={{ width: "220px", height: "100vh" }}>
+    <>
+    <button className="menu-toggle" onClick={() => setOpen(!open)}>Menu</button>
+
+
+    
+    
+    
+    <div className={`sidebar ${open ? "open" : ""}`}>
       <h4 className="mb-4">Menu</h4>
 
       <ul className="nav flex-column">
@@ -28,6 +39,8 @@ const Sidebar = () => {
         <a href="#" className="text-danger">Logout</a>
       </div>
     </div>
+    {open && <div className="overlay" onClick={() => setOpen(false)} />}
+    </>
   );
 };
 
