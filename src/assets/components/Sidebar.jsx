@@ -22,6 +22,7 @@ const Sidebar = () => {
         </li>
       </ul>
 
+
       <div className="mt-auto pt-5">
         <p className="text-muted">Username</p>
         <a href="#" className="text-danger">Logout</a>
