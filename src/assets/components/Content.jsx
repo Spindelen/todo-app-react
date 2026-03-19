@@ -1,29 +1,81 @@
+import { useState } from "react";
 
+const Content = ({ onAddTodo }) => {
+   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [assignedTo, setAssignedTo] = useState("");
+  const [attachments, setAttachments] = useState([]);
 
-const Content = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newTodo = {
+      id: Date.now(),
+      title,
+      description,
+      dueDate,
+      assignedTo,
+      attachments,
+      completed: false,
+      createdAt: new Date().toISOString(),
+    };
+
+    onAddTodo(newTodo);
+
+    setTitle("");
+    setDescription("");
+    setDueDate("");
+    setAssignedTo("");
+    setAttachments([]);
+  };
+
   return (
     <main className="card card-body mt-5 mx-4 mb-4">
-      <form id="taskForm">
+      <form onSubmit={handleSubmit}>
 
         <div className="mb-3">
           <label className="form-label">Title</label>
-          <input type="text" id="title" className="form-control" required />
+          <input 
+          type="text"
+          className="form-control"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required 
+        />
         </div>
 
         <div className="mb-3">
           <label className="form-label">Description</label>
-          <textarea id="description" className="form-control" rows="3" required></textarea>
+          <textarea 
+          className="form-control"
+          rows="3"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+          />
         </div>
 
         <div className="row">
           <div className="col-md-6 mb-3">
-            <label htmlFor="dueDate" className="form-label">Due date</label>
-            <input type="datetime-local" id="dueDate" className="form-control" required />
+            <label className="form-label">Due date</label>
+            <input
+            type="datetime-local"
+            className="form-control"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+            required
+            />
           </div>
 
           <div className="col-md-6 mb-3">
             <label className="form-label">Assigned to (optional)</label>
-            <select id="assignedTo" className="form-select">
+            <select 
+            className="form-select"
+            value={assignedTo}
+            onChange={(e) => setAssignedTo(e.target.value)}
+            >
+              
               <option value="">--- Select Person (Optional) --</option>
               <option value="1">Jon Due</option>
               <option value="2">Captain Kirk</option>
@@ -44,20 +96,21 @@ const Content = () => {
                 multiple
                 onChange={(e) => {
                 const files = Array.from(e.target.files);
-
-                const list = document.getElementById("fileList");
-                list.innerHTML = files.map(f => `<div>${f.name}</div>`).join("");
+                setAttachments(files);
                  }}
             />
 
             
-            <button className="btn btn-outline-secondary btn-sm" type="button" id="clearAttachment">
+            <button 
+            className="btn btn-outline-secondary btn-sm"
+            type="button"
+            onClick={() => setAttachments([])}
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
 
           <div
-            id="fileList"
             className="border rounded p-2 bg-white"
             style={{ minHeight: "50px", fontSize: "0.85rem" }}
           ></div>

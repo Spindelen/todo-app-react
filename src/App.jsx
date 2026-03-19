@@ -6,6 +6,7 @@ import TodoCard from "./assets/components/TodoCard";
 import TodoList from "./assets/components/TodoList";
 
 
+
 function App() {
   const [todos, setTodos] = useState([
    {id: 1, 
@@ -18,12 +19,16 @@ function App() {
   }
   ]);
 
+const addTodo = (newTodo) => {
+  setTodos([...todos, newTodo]);
+};
+
   return(
     <div className="d-flex">
       <Sidebar/>
       <div className="flex-grow-1">
         <Header/>
-        <Content/>
+        <Content onAddTodo={addTodo} />
         <TodoList
         todos={todos}
         onDelete={(id) => 
