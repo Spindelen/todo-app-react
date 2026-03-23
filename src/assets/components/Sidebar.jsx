@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "./css/Sidebar.css";
 
-const Sidebar = ({ setTheme, username, setUsername, sidebarOpen, setSidebarOpen }) => {
+const Sidebar = ({ navlinks, setTheme, username, setUsername, sidebarOpen, setSidebarOpen }) => {
 
   const navigate = useNavigate();
 

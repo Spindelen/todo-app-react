@@ -7,7 +7,7 @@ const Header = ({ search, setSearch, theme, setTheme, sidebarOpen, setSidebarOpe
       case "task": return "Task";
       case "scifi": return "Starlog";
       case "postit": return "StickyBoard";
-      default: return "Tasks";
+      default: return "Task";
     }
   };
 

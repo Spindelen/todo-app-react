@@ -9,6 +9,14 @@ import StartPage from "./assets/components/StartPage";
 import "./assets/components/css/Themes.css";
 import "./assets/components/css/App.css";
 
+const PAGES = [
+  { name: "Dashboard", icon: "bi-grid", href: "/dashboard" },
+  { name: "Users", icon: "bi-people", href: "/users" },
+  { name: "Tasks", icon: "bi-list-check", href: "/tasks" },
+  { name: "Settings", icon: "bi-gear", href: "/settings" }
+];
+
+
 function App() {
 
   
@@ -89,18 +97,22 @@ function App() {
     </div>
   }
 />
-
+   <Route path="/dashboard" element={<h1>Dashboard</h1>} />
+  <Route path="/users" element={<h1>Users</h1>} />
+  <Route path="/settings" element={<h1>Settings</h1>} />
+  
     <Route
       path="/tasks"
       element={
        <div className={`app-wrapper theme-${theme} d-flex`}> 
           <Sidebar
+          navlinks={PAGES}
            setTheme={setTheme}
            username={username}
            setUsername={setUsername}
            sidebarOpen={sidebarOpen}
            setSidebarOpen={setSidebarOpen}
-           />
+          />
 
           <div className="flex-grow-1">
             <Header 

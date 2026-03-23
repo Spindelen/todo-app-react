@@ -1,22 +1,19 @@
-
-
 .app-wrapper {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
 }
 
-
 .card {
   background: var(--card-bg) !important;
 }
-
 
 .btn-primary {
   background: var(--accent) !important;
   border-color: var(--accent) !important;
   color: #fff !important;
 }
+
 .tasks-wrapper {
   max-width: 800px;
   margin: 0 auto;

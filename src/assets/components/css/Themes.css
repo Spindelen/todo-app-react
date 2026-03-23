@@ -1,17 +1,12 @@
-
+/* ============================
+   BASE THEMES (VARIABLES)
+============================ */
 
 .theme-task {
   --bg: #ffffff;
   --text: #000000;
   --accent: #0d6efd;
   --card-bg: #f8f9fa;
-}
-
-.theme-scifi {
-  --bg: #0a0f1f;
-  --text: #d0eaff;
-  --accent: #4cc9f0;
-  --card-bg: #11182e;
 }
 
 .theme-modern {
@@ -28,8 +23,6 @@
   --card-bg: #ffffff;
 }
 
-
-
 .theme-dark {
   --bg: #121212;
   --text: #ffffff;
@@ -37,30 +30,36 @@
   --card-bg: #1e1e1e;
 }
 
+/* FIX: Correct selector (.theme-dark, not theme-dark) */
 .theme-dark .card {
   background: #1c1c1c !important;
 }
 
-theme-dark .todo-card {
+.theme-dark .todo-card {
   background: #2a2a2a !important;
   color: #ffffff !important;
 }
-theme-dark .text-muted {
+
+.theme-dark .text-muted {
   color: #cccccc !important;
 }
 
-theme-dark h2,
+.theme-dark h2,
 .theme-dark h3,
 .theme-dark h4 {
   color: #ffffff !important;
 }
-.theme-postit {
-  --bg: #fffbea;          
-  --text: #3a3a3a;        
-  --accent: #f7d735;      
-  --card-bg: #fff9c4;     
-}
 
+/* ============================
+   POST-IT THEME
+============================ */
+
+.theme-postit {
+  --bg: #fffbea;
+  --text: #3a3a3a;
+  --accent: #f7d735;
+  --card-bg: #fff9c4;
+}
 
 .theme-postit .card {
   background: var(--card-bg) !important;
@@ -69,11 +68,11 @@ theme-dark h2,
   border-radius: 6px !important;
 }
 
-
 .theme-postit .todo-card {
-  background: #fff59d !important;  border: none !important;
+  background: #fff59d !important;
+  border: none !important;
   box-shadow: 0 6px 10px rgba(0,0,0,0.2) !important;
-  transform: rotate(-1deg); 
+  transform: rotate(-1deg);
   color: #3a3a3a !important;
 }
 
@@ -83,21 +82,21 @@ theme-dark h2,
   color: #3a3a3a !important;
 }
 
-
 .theme-postit .text-muted {
   color: #6b6b6b !important;
 }
 
+/* ============================
+   SCIFI THEME (FIXED)
+============================ */
 
-
-
+/* FIX: Removed duplicate scifi block — this is the correct one */
 .theme-scifi {
-  --bg: #f2f6ff;            
-  --text: #1a1d26;          
-  --accent: #4a9eff;        
-  --card-bg: #ffffff;       
+  --bg: #0a0f1f;
+  --text: #d0eaff;
+  --accent: #4cc9f0;
+  --card-bg: #11182e;
 }
-
 
 .theme-scifi .app-wrapper {
   background: var(--bg);
@@ -107,22 +106,20 @@ theme-dark h2,
 .theme-scifi .card {
   background: var(--card-bg) !important;
   border: none !important;
-  border-left: 6px solid var(--accent) !important; 
+  border-left: 6px solid var(--accent) !important;
   border-radius: 10px !important;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
   padding-top: 18px !important;
 }
 
-
 .theme-scifi .todo-card {
-  background: #f9fbff !important;
+  background: #0f152b !important;
   border-left: 6px solid var(--accent) !important;
   color: var(--text) !important;
   border-radius: 10px !important;
   box-shadow: 0 3px 10px rgba(0,0,0,0.10) !important;
-  transform: rotate(-1deg); 
+  transform: rotate(-1deg);
 }
-
 
 .theme-scifi h2,
 .theme-scifi h3,
@@ -133,11 +130,9 @@ theme-dark h2,
   font-weight: 600;
 }
 
-
 .theme-scifi .text-muted {
   color: #6f7a8a !important;
 }
-
 
 .theme-scifi input,
 .theme-scifi textarea,
@@ -148,7 +143,6 @@ theme-dark h2,
   border-radius: 8px !important;
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
 }
-
 
 .theme-scifi button,
 .theme-scifi .btn {
@@ -162,18 +156,9 @@ theme-dark h2,
   box-shadow: 0 2px 6px rgba(74,158,255,0.4);
 }
 
-
-.theme-scifi input[type="text"] {
-  background: #ffffff !important;
-  border: 1px solid #c7d4ea !important;
-  color: var(--text) !important;
-}
-
-
 .theme-scifi .todo-card i {
-  color: inherit !important; 
+  color: inherit !important;
 }
-
 
 .theme-scifi .header i,
 .theme-scifi .menu-toggle i {
