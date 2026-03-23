@@ -1,11 +1,35 @@
-import React from "react";
+import "./css/Header.css";
 
-const Header = ({ search, setSearch }) => {
+const Header = ({ search, setSearch, theme, setTheme, sidebarOpen, setSidebarOpen}) => {
+
+ const getTitle = () => {
+    switch (theme) {
+      case "task": return "Task";
+      case "scifi": return "Starlog";
+      case "postit": return "StickyBoard";
+      default: return "Tasks";
+    }
+  };
+
   return (
-    <div className="d-flex justify-content-between align-items-center mb-4">
-      <h2 className="fw-bold">Tasks</h2>
+    <div className="header-wrapper">
 
-      <div className="input-group" style={{ width: "300px" }}>
+      
+       <button className="menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
+        <i className="bi bi-list"></i>
+      </button>
+
+      <button 
+     className="darkmode-toggle"
+     onClick={() => setTheme(theme === "dark" ? "task" : "dark")}
+     >
+       <i className={`bi ${theme === "dark" ? "bi-sun" : "bi-moon"}`}></i>
+      </button>
+
+      <h2 className="header-title">{getTitle()}</h2>
+
+      <div className="header-right">
+      <div className="input-group">
         <span className="input-group-text bg-white">
           <i className="bi bi-search"></i>
         </span>
@@ -19,9 +43,8 @@ const Header = ({ search, setSearch }) => {
         />
       </div>
     </div>
+    </div>
   );
 };
 
 export default Header;
-
-

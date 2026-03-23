@@ -1,0 +1,49 @@
+
+
+.todo-card {
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  min-height: 140px;
+}
+
+
+.todo-card .card-body {
+  padding: 0;
+}
+.todo-card {
+  transition: opacity 0.2s ease, border-left 0.2s ease;
+}
+
+.done-stamp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: rgba(0, 150, 0, 0.7);
+  border: 4px solid rgba(0, 150, 0, 0.7);
+  padding: 20px 30px;
+  border-radius: 50%;
+  text-align: center;
+  pointer-events: none;
+  opacity: 1; 
+}
+
+@keyframes stampIn {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3) rotate(-15deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.1) rotate(-15deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(-15deg);
+  }
+}
+.todo-card {
+  position: relative;
+}

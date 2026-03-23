@@ -1,48 +1,89 @@
-
-
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./css/Sidebar.css";
 
-const Sidebar = () => {
-  const [open, setOpen] = useState(false);
+const Sidebar = ({ setTheme, username, setUsername, sidebarOpen, setSidebarOpen }) => {
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setUsername("");
+    localStorage.removeItem("username");
+    localStorage.removeItem("theme");
+    navigate("/");
+  };
+
+ const closeMenu = () => setSidebarOpen(false);
+
 
   return (
     <>
-    <button className="menu-toggle" onClick={() => setOpen(!open)}>Menu</button>
+      
 
+      <div className={`sidebar ${sidebarOpen ? "open" : ""}`}>
+        <h4 className="mb-4">Menu</h4>
 
-    
-    
-    
-    <div className={`sidebar ${open ? "open" : ""}`}>
-      <h4 className="mb-4">Menu</h4>
+        <div className="btn-group mb-3">
+          <button
+            className="btn btn-sm btn-outline-primary"
+            onClick={() => setTheme("default")}
+          >
+            Task
+          </button>
+          <button
+            className="btn btn-sm btn-outline-warning"
+            onClick={() => setTheme("scifi")}
+          >
+            Sci‑Fi
+          </button>
+          <button
+            className="btn btn-sm btn-outline-success"
+            onClick={() => setTheme("postit")}
+          >
+            Post-it
+          </button>
+        </div>
 
-      <ul className="nav flex-column">
-        <li className="nav-item mb-2">
-          <Link className="nav-link" to="/">Dashboard</Link>
-        </li>
-        <li className="nav-item mb-2">
-          <Link className="nav-link" to="/users">Users</Link>
-        </li>
-        <li className="nav-item mb-2">
-          <Link className="nav-link" to="/tasks">Tasks</Link>
-        </li>
-        <li className="nav-item mb-2">
-          <Link className="nav-link" to="/settings">Settings</Link>
-        </li>
-      </ul>
+        <ul className="nav flex-column">
+          <li className="nav-item mb-2">
+            <Link className="nav-link" to="/dashboard" onClick={closeMenu}>
+              Dashboard
+            </Link>
+          </li>
+          <li className="nav-item mb-2">
+            <Link className="nav-link" to="/users" onClick={closeMenu}>
+              Users
+            </Link>
+          </li>
+          <li className="nav-item mb-2">
+            <Link className="nav-link" to="/tasks" onClick={closeMenu}>
+              Tasks
+            </Link>
+          </li>
+          <li className="nav-item mb-2">
+            <Link className="nav-link" to="/settings" onClick={closeMenu}>
+              Settings
+            </Link>
+          </li>
+        </ul>
 
+        <div className="mt-auto p-3">
+          <div className="fw-bold">{username}</div>
 
-      <div className="mt-auto pt-5">
-        <p className="text-muted">Username</p>
-        <a href="#" className="text-danger">Logout</a>
+          <button 
+            className="btn btn-link text-danger p-0 mt-2"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
       </div>
-    </div>
-    {open && <div className="overlay" onClick={() => setOpen(false)} />}
+
+      {sidebarOpen && (
+        <div className="overlay" onClick={() => setSidebarOpen(false)} />
+      )}
     </>
   );
 };
 
 export default Sidebar;
-

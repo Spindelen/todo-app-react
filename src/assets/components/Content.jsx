@@ -1,27 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const Content = ({ onAddTodo }) => {
+
+const Content = ({ onAddTodo, editTodo, onSaveEdit, username}) => {
    const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [assignedTo, setAssignedTo] = useState("");
   const [attachments, setAttachments] = useState([]);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if (editTodo) {
+      setTitle(editTodo.title);
+      setDescription(editTodo.description);
+      setDueDate(editTodo.dueDate);
+      setAssignedTo(editTodo.assignedTo);
+      setAttachments(editTodo.attachments || []);
+    }
+  }, [editTodo]);
+
+    const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newTodo = {
-      id: Date.now(),
-      title,
-      description,
-      dueDate,
-      assignedTo,
-      attachments,
-      completed: false,
-      createdAt: new Date().toISOString(),
-    };
+    if (editTodo) {
+      onSaveEdit({
+        ...editTodo,
+        title,
+        description,
+        dueDate,
+        assignedTo,
+        attachments
+      });
+    } else {
+      const newTodo = {
+        id: Date.now(),
+        title,
+        description,
+        dueDate,
+        assignedTo,
+        attachments,
+        completed: false,
+        createdAt: new Date().toISOString(),
+      };
 
-    onAddTodo(newTodo);
+      onAddTodo(newTodo);
+    }
 
     setTitle("");
     setDescription("");
@@ -31,7 +53,7 @@ const Content = ({ onAddTodo }) => {
   };
 
   return (
-    <main className="card card-body mt-5 mx-4 mb-4">
+    <main className="card card-body mt-5 mb-4">
       <form onSubmit={handleSubmit}>
 
         <div className="mb-3">
@@ -77,9 +99,12 @@ const Content = ({ onAddTodo }) => {
             >
               
               <option value="">--- Select Person (Optional) --</option>
-              <option value="1">Jon Due</option>
-              <option value="2">Captain Kirk</option>
-              <option value="3">Captain Janeway</option>
+              <option value="Jon Due">Jon Due</option>
+              <option value="Captain Kirk">Captain Kirk</option>
+              <option value="Captain Janeway">Captain Janeway</option>
+
+              {username && <option value={username}>{username}</option>}
+
             </select>
           </div>
         </div>
@@ -117,7 +142,8 @@ const Content = ({ onAddTodo }) => {
         </div>
 
         <div className="text-end mt-4">
-          <button className="btn btn-primary" type="submit">+ Add Todo</button>
+          <button className="btn btn-primary" type="submit">
+            {editTodo ? "Save Changes" : "+ Add Todo"} </button>
         </div>
 
       </form>

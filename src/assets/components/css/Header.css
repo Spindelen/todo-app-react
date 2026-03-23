@@ -1,0 +1,43 @@
+.header-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: var(--card-bg);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+
+.header-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-weight: 700;
+  color: var(--text);
+}
+
+
+.input-group {
+  margin-left: auto;
+  width: 300px;
+}
+.header-right {
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  width: 300px; 
+}
+.darkmode-toggle {
+  position: fixed;
+  top: 15px;
+  left: 70px; 
+  z-index: 1100;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  font-size: 1.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
